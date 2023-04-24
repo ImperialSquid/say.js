@@ -84,10 +84,16 @@ class SayPlatformDarwin extends SayPlatformBase {
       if (code === null || signal !== null) {
         return callback(new Error(`say.getInstalledVoices(): could not get installed voices, had an error [code: ${code}] [signal: ${signal}]`))
       }
-      console.log('voices', voices)
+      // console.log('voices', voices)
       if (voices.length > 0) {
-        voices = voices.split('\r\n')
-        voices = (voices[voices.length - 1] === '') ? voices.slice(0, voices.length - 1) : voices
+        let test = /([A-Za-z]+)\s*([A-Za-z]+_[A-Za-z]+)/g
+
+        let matches = voices.matchAll(test)
+
+        voices = []
+        for (const match of matches) {
+          voices.push(`${match[1]} (${match[2]})`)
+        }
       }
       this.child = null
 
