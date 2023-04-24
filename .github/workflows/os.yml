@@ -18,12 +18,14 @@ jobs:
     runs-on: ${{matrix.os}}
     
     steps:
+    # checkout and setup node
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }} on OS ${{ matrix.os }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     # if on windows, install scream and start audiosrv
     - name: Install Scream
       shell: powershell
@@ -35,6 +37,12 @@ jobs:
       if: ${{ matrix.os == 'windows-latest' }}
     - run: net start audiosrv
       if: ${{ matrix.os == 'windows-latest' }}
+
+    # if on linux, install festival
+    - name: Install Festival
+      run: sudo apt-get install festival festvox-kallpc16k
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+
+    # run tests
     - run: npm ci
-    - run: npm run build --if-present
     - run: npm test
