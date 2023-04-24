@@ -11,7 +11,7 @@ Object.keys(say).forEach((prop) =>
 
 console.log('Beginning stop...')
 
-say.speak('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non dolor nulla. Quisque non nisl in ante fringilla porttitor euismod quis nulla. Integer fringilla lacus at elit vestibulum finibus. Nunc sagittis ipsum eu tincidunt tristique. Cras in mauris nisi. Duis id convallis dolor, consectetur mollis turpis. Fusce interdum magna ut erat aliquam posuere. Fusce posuere efficitur ex, vel mollis mauris convallis ac. In hac habitasse platea dictumst. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras porttitor venenatis sollicitudin. Suspendisse varius, nulla rutrum porttitor tempus, augue sapien blandit nulla, mollis faucibus justo mi at purus. Cras hendrerit urna a mollis sollicitudin. Donec tempus lorem metus, quis mattis dui facilisis vel. ', undefined, undefined, (error) => {
+say.speak('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rhoncus orci odio. Sed ornare est nisi, sit amet varius odio mollis vitae. Fusce commodo orci quis consectetur posuere. In a felis ac eros. ', undefined, undefined, (error) => {
   if (error) {
     return console.error(error)
   }
