@@ -79,7 +79,6 @@ class SayPlatformWin32 extends SayPlatformBase {
   }
 
   getVoices (callback) {
-
     if (typeof callback !== 'function') {
       callback = () => {}
     }
