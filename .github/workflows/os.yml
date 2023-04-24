@@ -24,7 +24,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    # if on windows, start the audio service
+    # if on windows, install scream and start audiosrv
+    - name: Install Scream
+      shell: powershell
+      run: |
+        Invoke-WebRequest https://github.com/duncanthrax/scream/releases/download/3.8/Scream3.8.zip -OutFile Scream3.8.zip
+        Expand-Archive -Path Scream3.8.zip -DestinationPath Scream
+        Import-Certificate -FilePath Scream\Install\driver\x64\Scream.cat -CertStoreLocation Cert:\LocalMachine\TrustedPublisher 
+        Scream\Install\helpers\devcon-x64.exe install Scream\Install\driver\x64\Scream.inf *Scream
+      if: ${{ matrix.os == 'windows-latest' }}
     - run: net start audiosrv
       if: ${{ matrix.os == 'windows-latest' }}
     - run: npm ci
