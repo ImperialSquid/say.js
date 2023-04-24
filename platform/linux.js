@@ -4,9 +4,10 @@ const BASE_SPEED = 100
 const COMMAND = 'festival'
 
 class SayPlatformLinux extends SayPlatformBase {
-  constructor () {
+  constructor (debug) {
     super()
     this.baseSpeed = BASE_SPEED
+    this.debug = debug
   }
 
   buildSpeakCommand ({ text, voice, speed }) {

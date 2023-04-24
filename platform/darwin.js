@@ -4,9 +4,10 @@ const BASE_SPEED = 175
 const COMMAND = 'say'
 
 class SayPlatformDarwin extends SayPlatformBase {
-  constructor () {
+  constructor (debug) {
     super()
     this.baseSpeed = BASE_SPEED
+    this.debug = debug
   }
 
   buildSpeakCommand ({ text, voice, speed }) {

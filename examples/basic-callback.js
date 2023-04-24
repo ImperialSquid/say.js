@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
-const say = require('../')
+let sayModule = require('../')
+
+let say = new sayModule.Say(undefined, true)
+
+Object.keys(say).forEach((prop) =>
+  console.log(prop, say[prop])
+)
 
 console.log('about to speak...')
 

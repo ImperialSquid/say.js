@@ -6,9 +6,10 @@ const BASE_SPEED = 0 // Unsupported
 const COMMAND = 'powershell'
 
 class SayPlatformWin32 extends SayPlatformBase {
-  constructor () {
+  constructor (debug) {
     super()
     this.baseSpeed = BASE_SPEED
+    this.debug = debug
   }
 
   buildSpeakCommand ({ text, voice, speed }) {

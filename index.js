@@ -7,17 +7,17 @@ const LINUX = 'linux'
 const WIN32 = 'win32'
 
 class Say {
-  constructor (platform) {
+  constructor (platform, debug) {
     if (!platform) {
       platform = process.platform
     }
 
     if (platform === MACOS) {
-      return new SayMacos()
+      return new SayMacos(debug)
     } else if (platform === LINUX) {
-      return new SayLinux()
+      return new SayLinux(debug)
     } else if (platform === WIN32) {
-      return new SayWin32()
+      return new SayWin32(debug)
     }
 
     throw new Error(`new Say(): unsupported platorm! ${platform}`)

@@ -5,6 +5,7 @@ class SayPlatformBase {
   constructor () {
     this.child = null
     this.baseSpeed = 0
+    this.debug = false
   }
 
   /**
@@ -29,6 +30,13 @@ class SayPlatformBase {
     }
 
     let { command, args, pipedData, options } = this.buildSpeakCommand({ text, voice, speed })
+
+    if (this.debug) {
+      console.log('command: ' + command)
+      console.log('args: ' + args)
+      console.log('pipedData: ' + pipedData)
+      console.log('options:\n  ' + Object.keys(options).map((key) => `${key}: ${options[key]}`).join(' \n'))
+    }
 
     this.child = childProcess.spawn(command, args, options)
 
