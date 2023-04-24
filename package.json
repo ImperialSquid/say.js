@@ -5,9 +5,12 @@
   "author": "Marak Squires",
   "license": "MIT",
   "scripts": {
-    "test": "standard && node examples/basic-callback.js",
     "lint": "standard",
-    "lint-fix": "standard --fix"
+    "lint-fix": "standard --fix",
+    "test": "standard && npm run test:speak && npm run test:stop && npm run test:getvoices",
+    "test:speak": "node scripts/speak.js",
+    "test:stop": "node scripts/stop.js",
+    "test:getvoices": "node scripts/getvoices.js"
   },
   "repository": {
     "type": "git",
