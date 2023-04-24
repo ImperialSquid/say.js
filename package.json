@@ -21,6 +21,6 @@
     "standard": "^12.0.1"
   },
   "dependencies": {
-    "one-time": "0.0.4"
+    "one-time": "^1.0.0"
   }
 }
