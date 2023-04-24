@@ -5,7 +5,7 @@
   "author": "Marak Squires",
   "license": "MIT",
   "scripts": {
-    "test": "standard && ./examples/basic-callback.js",
+    "test": "standard && node examples/basic-callback.js",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
