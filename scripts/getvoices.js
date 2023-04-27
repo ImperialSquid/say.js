@@ -9,12 +9,14 @@ Object.keys(say).forEach((prop) =>
   console.log(prop, say[prop])
 )
 
-console.log('Beginning stop...')
+console.log('Getting voices...')
 
 say.getInstalledVoices((error, voices) => {
   if (error) {
     return console.error(error)
   }
 
-  console.log(voices[0])
+  // print number of voices
+  console.log(`Got ${voices.length} voices:`)
+  console.log(voices)
 })
