@@ -1,5 +1,5 @@
 ## Say.js
-Forked and modified from [Marak/say.js](https://https://github.com/Marak/say.js) to use more upto date dependencies. This is mostly for use in my TTTS zotero plugin [ZoTTS](https://github.com/ImperialSquid/zotero-zotts). The old README is [here](README-OLD.md).
+Forked and modified from [Marak/say.js](https://https://github.com/Marak/say.js) to use more upto date dependencies. This is mostly for use in my TTS zotero plugin [ZoTTS](https://github.com/ImperialSquid/zotero-zotts). The old README is [here](README-OLD.md).
 
 ## Changes
 - [x] Update dependencies
