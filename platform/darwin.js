@@ -1,6 +1,5 @@
 const SayPlatformBase = require('./base.js')
 const childProcess = require('child_process')
-const once = require('one-time')
 
 const BASE_SPEED = 175
 const COMMAND = 'say'
@@ -57,12 +56,7 @@ class SayPlatformDarwin extends SayPlatformBase {
     this.child.kill()
   }
 
-  getVoices (callback) {
-    if (typeof callback !== 'function') {
-      callback = () => {}
-    }
-    callback = once(callback)
-
+  async getVoices () {
     let voices = []
     let command = 'say'
     let args = ['-v', '?']
@@ -72,32 +66,34 @@ class SayPlatformDarwin extends SayPlatformBase {
     this.child.stdin.setEncoding('ascii')
     this.child.stderr.setEncoding('ascii')
 
-    this.child.stderr.once('data', (data) => {
-      // we can't stop execution from this function
-      callback(new Error(data))
-    })
-    this.child.stdout.on('data', function (data) {
-      voices += data
-    })
+    return new Promise((resolve, reject) => {
+      this.child.stderr.once('data', (data) => {
+        // we can't stop execution from this function
+        reject(new Error(data))
+      })
+      this.child.stdout.on('data', function (data) {
+        voices += data
+      })
 
-    this.child.addListener('exit', (code, signal) => {
-      if (code === null || signal !== null) {
-        return callback(new Error(`say.getInstalledVoices(): could not get installed voices, had an error [code: ${code}] [signal: ${signal}]`))
-      }
-      // console.log('voices', voices)
-      if (voices.length > 0) {
-        let test = /([A-Za-z]+)\s*([A-Za-z]+_[A-Za-z]+)/g
-
-        let matches = voices.matchAll(test)
-
-        voices = []
-        for (const match of matches) {
-          voices.push(`${match[1]} (${match[2]})`)
+      this.child.addListener('exit', (code, signal) => {
+        if (code === null || signal !== null) {
+          reject(new Error(`say.getInstalledVoices(): could not get installed voices, had an error [code: ${code}] [signal: ${signal}]`))
         }
-      }
-      this.child = null
+        // console.log('voices', voices)
+        if (voices.length > 0) {
+          let test = /([A-Za-z]+)\s*([A-Za-z]+_[A-Za-z]+)/g
 
-      callback(null, voices)
+          let matches = voices.matchAll(test)
+
+          voices = []
+          for (const match of matches) {
+            voices.push(`${match[1]} (${match[2]})`)
+          }
+        }
+        this.child = null
+
+        resolve(voices)
+      })
     })
   }
 }

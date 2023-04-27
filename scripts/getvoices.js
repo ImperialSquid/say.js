@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-let sayModule = require('../')
+let sayModule = require('../index')
 
 let say = new sayModule.Say(undefined, true) // set debug to true
 
@@ -11,12 +11,12 @@ Object.keys(say).forEach((prop) =>
 
 console.log('Getting voices...')
 
-say.getInstalledVoices((error, voices) => {
-  if (error) {
-    return console.error(error)
-  }
+let p1 = say.getInstalledVoices()
+let voices = []
 
-  // print number of voices
-  console.log(`Got ${voices.length} voices:`)
-  console.log(voices)
-})
+Promise.all([p1]).then((v) => { voices = v[0] }).catch(console.error)
+
+setTimeout(() => {
+  console.log(`Found ${voices.length} voices`)
+  console.log('Voices:', voices)
+}, 1000)

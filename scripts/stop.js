@@ -11,18 +11,18 @@ Object.keys(say).forEach((prop) =>
 
 console.log('Beginning stop...')
 
-say.speak('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rhoncus orci odio. Sed ornare est nisi, sit amet varius odio mollis vitae. Fusce commodo orci quis consectetur posuere. In a felis ac eros. ', undefined, undefined, (error) => {
-  if (error) {
-    return console.error(error)
-  }
-})
+try {
+  say.speak('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rhoncus orci odio. Sed ornare est nisi, sit amet varius odio mollis vitae. Fusce commodo orci quis consectetur posuere. In a felis ac eros. ', undefined, undefined)
+} catch (e) {
+  console.log(e)
+}
 
 setTimeout(() => {
   console.log('Stopping...')
-  say.stop((error) => {
-    if (error) {
-      return console.error(error)
-    }
-    console.log('Stopped!')
-  })
+  try {
+    say.stop()
+  } catch (e) {
+    console.log(e)
+  }
+  console.log('Stopped!')
 }, 2000)

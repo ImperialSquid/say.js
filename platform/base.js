@@ -1,5 +1,4 @@
 const childProcess = require('child_process')
-const once = require('one-time')
 
 class SayPlatformBase {
   constructor () {
@@ -16,16 +15,10 @@ class SayPlatformBase {
    * @param {number|null} speed Speed of text (e.g. 1.0 for normal, 0.5 half, 2.0 double)
    * @param {Function|null} callback A callback of type function(err) to return.
    */
-  speak (text, voice, speed, callback) {
-    if (typeof callback !== 'function') {
-      callback = () => {}
-    }
-
-    callback = once(callback)
-
+  async speak (text, voice, speed) {
     if (!text) {
       return setImmediate(() => {
-        callback(new TypeError('say.speak(): must provide text parameter'))
+        throw new TypeError('say.speak(): must provide text parameter')
       })
     }
 
@@ -49,17 +42,17 @@ class SayPlatformBase {
 
     this.child.stderr.once('data', (data) => {
       // we can't stop execution from this function
-      callback(new Error(data))
+      throw new Error(data)
     })
 
     this.child.addListener('exit', (code, signal) => {
       if (code === null || signal !== null) {
-        return callback(new Error(`say.speak(): could not talk, had an error [code: ${code}] [signal: ${signal}]`))
+        throw new Error(`say.speak(): could not talk, had an error [code: ${code}] [signal: ${signal}]`)
       }
 
       this.child = null
 
-      callback(null)
+      return null
     })
   }
 
@@ -72,22 +65,16 @@ class SayPlatformBase {
    * @param {string} filename Path to file to write audio to, e.g. "greeting.wav"
    * @param {Function|null} callback A callback of type function(err) to return.
    */
-  export (text, voice, speed, filename, callback) {
-    if (typeof callback !== 'function') {
-      callback = () => {}
-    }
-
-    callback = once(callback)
-
+  async export (text, voice, speed, filename) {
     if (!text) {
       return setImmediate(() => {
-        callback(new TypeError('say.export(): must provide text parameter'))
+        throw new TypeError('say.export(): must provide text parameter')
       })
     }
 
     if (!filename) {
       return setImmediate(() => {
-        callback(new TypeError('say.export(): must provide filename parameter'))
+        throw new TypeError('say.export(): must provide filename parameter')
       })
     }
 
@@ -95,7 +82,7 @@ class SayPlatformBase {
       var { command, args, pipedData, options } = this.buildExportCommand({ text, voice, speed, filename })
     } catch (error) {
       return setImmediate(() => {
-        callback(error)
+        throw error
       })
     }
 
@@ -110,17 +97,17 @@ class SayPlatformBase {
 
     this.child.stderr.once('data', (data) => {
       // we can't stop execution from this function
-      callback(new Error(data))
+      throw new Error(data)
     })
 
     this.child.addListener('exit', (code, signal) => {
       if (code === null || signal !== null) {
-        return callback(new Error(`say.export(): could not talk, had an error [code: ${code}] [signal: ${signal}]`))
+        throw new Error(`say.export(): could not talk, had an error [code: ${code}] [signal: ${signal}]`)
       }
 
       this.child = null
 
-      callback(null)
+      return null
     })
   }
 
@@ -131,16 +118,10 @@ class SayPlatformBase {
    *
    * @param {Function|null} callback A callback of type function(err) to return.
    */
-  stop (callback) {
-    if (typeof callback !== 'function') {
-      callback = () => {}
-    }
-
-    callback = once(callback)
-
+  async stop () {
     if (!this.child) {
       return setImmediate(() => {
-        callback(new Error('say.stop(): no speech to kill'))
+        throw new Error('say.stop(): no speech to kill')
       })
     }
 
@@ -148,7 +129,7 @@ class SayPlatformBase {
 
     this.child = null
 
-    callback(null)
+    return null
   }
 
   convertSpeed (speed) {
@@ -159,8 +140,8 @@ class SayPlatformBase {
    * Get Installed voices on system
    * @param {Function} callback A callback of type function(err,voices) to return.
    */
-  getInstalledVoices (callback) {
-    this.getVoices(callback)
+  async getInstalledVoices () {
+    return this.getVoices()
   }
 }
 

@@ -11,10 +11,6 @@ Object.keys(say).forEach((prop) =>
 
 console.log('Beginning speak...')
 
-say.speak('What are you doing?', undefined, undefined, (error) => {
-  if (error) {
-    return console.error(error)
-  }
+say.speak('What are you doing?', undefined, undefined)
 
-  console.log('Done')
-})
+console.log('Done')
