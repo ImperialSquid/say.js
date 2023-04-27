@@ -46,7 +46,7 @@ class SayPlatformBase {
     })
 
     this.child.addListener('exit', (code, signal) => {
-      if (code === null || signal !== null) {
+      if ((code === null || signal !== null) && signal !== 'SIGUSR1') {
         throw new Error(`say.speak(): could not talk, had an error [code: ${code}] [signal: ${signal}]`)
       }
 

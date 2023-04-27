@@ -53,7 +53,7 @@ class SayPlatformDarwin extends SayPlatformBase {
 
   runStopCommand () {
     this.child.stdin.pause()
-    this.child.kill('SIGKILL')
+    this.child.kill('SIGUSR1')
   }
 
   async getVoices () {
