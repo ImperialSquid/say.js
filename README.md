@@ -9,9 +9,10 @@ Forked and modified from [Marak/say.js](https://https://github.com/Marak/say.js)
   - [x] Added tests for Windows
 - [x] Update README
 - [x] Add debug output to speak
-- [ ] Update MacOS to return voices
-- [ ] Update Linux to return voices
+- [x] Update MacOS to return voices
 
 ## TODO and Issues
 - [ ] Fix tests
   - Linux tests are failing, reports as success but runner has no sound card, a solution probably exists but needs research
+- [ ] Add getVoices for linux
+  - Prompt for getting voices in festival seems to be [interactive](https://wiki.archlinux.org/title/Festival#Interactive), not sure how much work this is, needs investigation
