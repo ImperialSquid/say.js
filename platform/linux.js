@@ -1,9 +1,9 @@
-const SayPlatformBase = require('./base.js')
+import { SayPlatformBase } from './base.js'
 
 const BASE_SPEED = 100
 const COMMAND = 'festival'
 
-class SayPlatformLinux extends SayPlatformBase {
+export class SayPlatformLinux extends SayPlatformBase {
   constructor (debug) {
     super()
     this.baseSpeed = BASE_SPEED
@@ -46,5 +46,3 @@ class SayPlatformLinux extends SayPlatformBase {
     throw new Error(`say.export(): does not support platform ${this.platform}`)
   }
 }
-
-module.exports = SayPlatformLinux

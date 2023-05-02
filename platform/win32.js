@@ -1,11 +1,11 @@
-const childProcess = require('child_process')
+import childProcess from 'child_process'
 
-const SayPlatformBase = require('./base.js')
+import { SayPlatformBase } from './base.js'
 
 const BASE_SPEED = 0 // Unsupported
 const COMMAND = 'powershell'
 
-class SayPlatformWin32 extends SayPlatformBase {
+export class SayPlatformWin32 extends SayPlatformBase {
   constructor (debug) {
     super()
     this.baseSpeed = BASE_SPEED
@@ -115,5 +115,3 @@ class SayPlatformWin32 extends SayPlatformBase {
     })
   }
 }
-
-module.exports = SayPlatformWin32

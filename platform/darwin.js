@@ -1,10 +1,11 @@
-const SayPlatformBase = require('./base.js')
-const childProcess = require('child_process')
+import childProcess from 'child_process'
+
+import { SayPlatformBase } from './base.js'
 
 const BASE_SPEED = 175
 const COMMAND = 'say'
 
-class SayPlatformDarwin extends SayPlatformBase {
+export class SayPlatformDarwin extends SayPlatformBase {
   constructor (debug) {
     super()
     this.baseSpeed = BASE_SPEED
@@ -97,5 +98,3 @@ class SayPlatformDarwin extends SayPlatformBase {
     })
   }
 }
-
-module.exports = SayPlatformDarwin

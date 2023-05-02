@@ -1,6 +1,6 @@
-const childProcess = require('child_process')
+import childProcess from 'child_process'
 
-class SayPlatformBase {
+export class SayPlatformBase {
   constructor () {
     this.child = null
     this.baseSpeed = 0
@@ -144,5 +144,3 @@ class SayPlatformBase {
     return this.getVoices()
   }
 }
-
-module.exports = SayPlatformBase

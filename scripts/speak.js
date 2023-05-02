@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-let sayModule = require('../')
+import { Say } from '../index.js'
 
-let say = new sayModule.Say(undefined, true) // set debug to true
+let say = new Say(undefined, true) // set debug to true
 
 console.log('Say object:')
 Object.keys(say).forEach((prop) =>
